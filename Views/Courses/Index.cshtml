@@ -1,0 +1,97 @@
+﻿@model IEnumerable<WebApplication1.Models.Course>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center mb-5">List of Courses</h2>
+
+
+
+
+@{
+    var checkRole = Context.Session.GetObject<String>("ssUser_role");
+    if (checkRole == "admin")
+    {
+        <div class="row mb-5">
+            <div class="col">
+                <a class="btn btn-primary" asp-controller="Courses" asp-action="Create">New Course</a>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    }
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form class="d-flex" asp-action="Index" asp-controller="Courses">
+            <input name="searchString" class="form-control me-1" type="search" placeholder="Search by Course code" aria-label="Search" />
+            <button class="btn btn-dark" type="submit">Search</button>
+        </form>
+    </div>
+
+    @{
+        if (TempData["btn-fullList"] == "on")
+        {
+            <div class="col-md-6">
+                <a asp-action="Index" class="btn btn-secondary">Back to Full List</a>
+            </div>
+        }
+    }
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Course Name
+            </th>
+            <th>
+                Course code
+            </th>
+            <th>
+                Duration
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nameCourse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codeCourse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.duration)
+            </td>
+             @{
+                    if (checkRole == "admin")
+                    {
+                        
+                        <td style="white-space:nowrap">
+                            <a class="btn btn-primary btn-sm" asp-controller="Courses" asp-action="Edit"
+                               asp-route-id="@item.Id">
+                                Edit
+                            </a>
+
+                            <a class="btn btn-primary btn-sm" asp-controller="Courses" asp-action="Details"
+                               asp-route-id="@item.Id">
+                                Detail
+                            </a>
+
+                            <a class="btn btn-danger btn-sm" asp-controller="Courses" asp-action="Delete"
+                               asp-route-id="@item.Id" onclick="return confirm('Are you sure to delete course?')">
+                                Delete
+                            </a>
+                        </td>
+                    }
+            }
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,91 @@
+﻿@model WebApplication1.Models.ClassInput
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@{
+    try
+    {
+        if (TempData["msg"] == "Cannot find the course")
+        {
+            <script>
+                swal("E-School", "Cannot find the course", "error");
+            </script>
+        }
+        else if (TempData["msg"] == "Cannot find the lecturer")
+        {
+            <script>
+                swal("E-School", "Cannot find the lecturer", "error");
+            </script>
+        }
+        else if (TempData["msg"] == "Cannot find the course and lecturer")
+        {
+            <script>
+                swal("E-School", "Cannot find the course and lecturer", "error");
+            </script>
+        }
+    }
+    catch
+    {
+        
+    }
+}
+
+<h1>Create</h1>
+
+<h4>Class</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="startTime" class="control-label">Start time</label>
+                <input asp-for="startTime" class="form-control" />
+                <span asp-validation-for="startTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Room" class="control-label">Room</label>
+                <input asp-for="Room" class="form-control" />
+                <span asp-validation-for="Room" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DayInWeek" class="control-label">Day</label>
+                <input asp-for="DayInWeek" class="form-control" />
+                <span asp-validation-for="DayInWeek" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="CourseCode" class="control-label">Course Code</label>
+                <input asp-for="CourseCode" class="form-control" />
+                <span asp-validation-for="CourseCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LecturerID" class="control-label">Lecturer ID</label>
+                <input asp-for="LecturerID" class="form-control" />
+                <span asp-validation-for="LecturerID" class="text-danger"></span>
+            </div>
+            <!--
+                <div class="form-group">
+                    <label asp-for="LecturerId" class="control-label"></label>
+                    <select asp-for="LecturerId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                </div>
+
+            -->
+            <div class="form-group">
+                <input type="submit" value="Create" style="margin-top: 20px" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

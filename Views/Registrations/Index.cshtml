@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WebApplication1.Models.Registration>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center mb-5">Registration</h2>
+
+@{
+    var checkUsername = Context.Session.GetObject<String>("ssUser_username");
+    if (checkUsername != null)
+    {
+        <div class="row mb-5">
+            <div class="col">
+                <a class="btn btn-primary" asp-controller="Registrations" asp-action="Create">New Registration</a>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    }
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                First name
+            </th>
+            <th>
+                Last name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Student ID
+            </th>
+            <th>
+                Classes
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Classes.Id)
+            </td>
+                @{
+                    if (checkUsername != null)
+                    {
+                        <td style="white-space:nowrap">
+                            <a class="btn btn-primary btn-sm" asp-controller="Registrations" asp-action="Edit"
+                               asp-route-id="@item.Id">
+                                Edit
+                            </a>
+
+                            <a class="btn btn-primary btn-sm" asp-controller="Registrations" asp-action="Details"
+                               asp-route-id="@item.Id">
+                                Detail
+                            </a>
+
+                            <a class="btn btn-danger btn-sm" asp-controller="Registrations" asp-action="Delete"
+                               asp-route-id="@item.Id" onclick="return confirm('Are you sure to delete the registration?')">
+                                Delete
+                            </a>
+                        </td>
+                    }
+            }
+                
+        </tr>
+}
+    </tbody>
+</table>

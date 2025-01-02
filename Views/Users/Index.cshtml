@@ -1,0 +1,117 @@
+﻿@model IEnumerable<WebApplication1.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center mb-5">List of Users</h2>
+
+<div class="row mb-5">
+    <div class="col">
+        <a class="btn btn-primary" asp-controller="Users" asp-action="Create">New user</a>
+    </div>
+    <div class="col">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <form class="d-flex" asp-action="Index" asp-controller="Users">
+            <input name="searchString" class="form-control me-1" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-dark" type="submit">Search</button>
+        </form>
+    </div>
+
+    @{
+        if (TempData["btn-fullList"] == "on")
+        {
+            <div class="col-md-6">
+                <a asp-action="Index" class="btn btn-secondary">Back to Full List</a>
+            </div>
+        }
+    }
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                User Name
+            </th>
+            <th>
+                Password
+            </th>
+            <th>
+                Role
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Date created
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.role)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createdAccountDate)
+                </td>
+            <td style="white-space:nowrap">
+                <a class="btn btn-primary btn-sm" asp-controller="Users" asp-action="Edit"
+                    asp-route-id="@item.Id">
+                    Edit
+                </a> 
+
+                <a class="btn btn-primary btn-sm" asp-controller="Users" asp-action="Details"
+                    asp-route-id="@item.Id">
+                    Detail
+                </a> 
+
+                <a class="btn btn-danger btn-sm" asp-controller="Users" asp-action="Delete"
+                    asp-route-id="@item.Id" onclick="return confirm('Are you sure to delete user?')">
+                    Delete
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

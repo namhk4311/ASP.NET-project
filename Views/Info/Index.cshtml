@@ -1,0 +1,113 @@
+﻿@model IEnumerable<WebApplication1.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+    var getId = Context.Session.GetObject<int>("ssUser_userid");
+    var getUsername = Context.Session.GetObject<String>("ssUser_username");
+    var getUserrole = Context.Session.GetObject<String>("ssUser_role");
+    var getUserfname = Context.Session.GetObject<String>("ssUser_fName");
+    var getUserlname = Context.Session.GetObject<String>("ssUser_lName");
+    var getUseremail = Context.Session.GetObject<String>("ssUser_email");
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body" width="500px">
+                    <div class="row">
+                        <div class="col">
+                            <center>
+                                <img width="100px" src="img/generaluser.png" />
+                            </center>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <center>
+                                <h4>Your Profile</h4>
+                                <span>Account Status - </span>
+                                <span class="badge rounded-pill text-bg-success">Active</span>
+                            </center>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <center>
+                            <div style="display: flex; flex-direction:row; justify-content: space-between; align-items: center; width: 350px; margin-top: 10px;">
+                                    <label>User ID</label>
+                                    <div class="form-group">
+                                        <input class="form-control" readonly value="@getId" />
+                                    </div>
+                            </div>
+
+                        </center>
+                    </div>
+                       
+                    <div class="row">
+                        <center>
+                            <div style="display: flex; flex-direction:row; justify-content: space-between; align-items: center; width: 350px; margin-top: 10px;">
+                                <label>User Name</label>
+                                <div class="form-group">
+                                    <input class="form-control" readonly value="@getUsername" />
+                                </div>
+                            </div>
+
+                        </center>
+                    </div>
+
+
+                    <div class="row">
+                        <center>
+                            <div style="display: flex; flex-direction:row; justify-content: space-between; align-items: center; width: 350px; margin-top: 10px;">
+                                <label>User role</label>
+                                <div class="form-group">
+                                    <input class="form-control" readonly value="@getUserrole" />
+                                </div>
+                            </div>
+
+                        </center>
+                    </div>
+
+                    <div class="row">
+                        <center>
+                            <div style="display: flex; flex-direction:row; justify-content: space-between; align-items: center; width: 350px; margin-top: 10px;">
+                                <label>First name</label>
+                                <div class="form-group">
+                                    <input class="form-control" readonly value="@getUserfname" />
+                                </div>
+                            </div>
+
+                        </center>
+                    </div>
+
+                    <div class="row">
+                        <center>
+                            <div style="display: flex; flex-direction:row; justify-content: space-between; align-items: center; width: 350px; margin-top: 10px;">
+                                <label>Last name</label>
+                                <div class="form-group">
+                                    <input class="form-control" readonly value="@getUserlname" />
+                                </div>
+                            </div>
+
+                        </center>
+                    </div>
+
+                    <div class="row">
+                        <center>
+                            <div style="display: flex; flex-direction:row; justify-content: space-between; align-items: center; width: 350px; margin-top: 10px;">
+                                <label>Email</label>
+                                <div class="form-group">
+                                    <input class="form-control" readonly value="@getUseremail" />
+                                </div>
+                            </div>
+
+                        </center>
+                    </div>
+
+                </div>
+            </div>
+        </div>          
+    </div>
+</div>

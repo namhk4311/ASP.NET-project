@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebApplication1.Models.Class>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center mb-5">List of Classes</h2>
+
+@{
+    var checkRole = Context.Session.GetObject<String>("ssUser_role");
+    if (checkRole == "admin")
+    {
+        <div class="row mb-5">
+            <div class="col">
+                <a class="btn btn-primary" asp-controller="Classes" asp-action="Create">New Class</a>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    }
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Start Time
+            </th>
+            <th>
+                Room
+            </th>
+            <th>
+                Day
+            </th>
+            <th>
+                Course Code
+            </th>
+            <th>
+                Lecturer Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.startTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Room)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayInWeek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.codeCourse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.firstname)
+            </td>
+                @{
+                    if (checkRole == "admin")
+                    {
+                        <td style="white-space:nowrap">
+                            <a class="btn btn-primary btn-sm" asp-controller="Classes" asp-action="Edit"
+                                asp-route-id="@item.Id">
+                                Edit
+                            </a>
+
+                            <a class="btn btn-primary btn-sm" asp-controller="Classes" asp-action="Details"
+                                asp-route-id="@item.Id">
+                                Detail
+                            </a>
+
+                            <a class="btn btn-danger btn-sm" asp-controller="Classes" asp-action="Delete"
+                                asp-route-id="@item.Id" onclick="return confirm('Are you sure to delete the class?')">
+                                Delete
+                            </a>
+                        </td>
+                    }
+            }
+        </tr>
+}
+    </tbody>
+</table>
